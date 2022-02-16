@@ -1,0 +1,16 @@
+[1] Si consideri il tipo di dati astratto modificabile SimpleSorteMap<K,V>, variante semplificata dell'interfaccia SortedMap<K,V> delle API Java e utilizzata per rappresentare una funzione parziale con domino un ordine totale K e codominio V. O, per dirla con le API Java: se una mappa è an object that maps keys to values. A map cannot contain duplicate keys; each key can map to at most one value, una mappa ordinata è a Map that further provides a total ordering on its keys.
+Tale tipo di dati ha, tra gli altri, i seguenti metodi:
+   public V put(K key, V value), che associa il valore value alla chiave key, e restituisce il valore precedentemente associato a key se questo esisteva, e null altrimenti;
+   public V get(K key), che restituisce il valore associato alla chiave key se questo esiste, e null altrimenti;
+   public Set<K> keySet(), che restituisce l'insieme delle chiavi che hanno associato un valore;
+   public <K> lastKey(), che restituisce la chiave più grande che ha associato un valore.
+Si completi la specifica del tipo di dati astratto, includendo una overview con la descrizione di un'istanza tipica e fornendo la specifica completa dei metodi, comprese le eventuali eccezioni lanciate.
+
+[2] Si definisca la classe public TwoListsSSMap<K,V> che implementa il tipo di dati astratto SimpleSortedMap<K,V>. Questa deve utilizzare una rappresentazione del tipo:
+   private List<K> keys;
+   private List<V> values;
+In particolare, si definiscano la funzione di astrazione e l'invariante di rappresentazione.
+
+[3] Si dimostri la correttezza dell'implementazione proposta.
+   
+[4] Si consideri la classe LimitedTwoListsSSMap<K,V>, che estende TwoListSMap<K,V> imponendo un limite massimo al numero di elementi di K ai quali può essere associato un valore. Si sovrascrivano solo i metodi necessari, si definiscano la funzione di astrazione e l'invariante di rappresentazione.
