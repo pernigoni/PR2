@@ -19,12 +19,13 @@ let calculator (a : int) (op : char) (b : int) : int =
 	else
 		999;;
 
-print_string (string_of_int (calculator 10 '+' 5) ^ " ");;
-print_string (string_of_int (calculator 10 '-' 5) ^ " ");;
-print_string (string_of_int (calculator 10 '*' 5) ^ " ");;
-print_string (string_of_int (calculator 10 '/' 5) ^ " ");;
-print_string (string_of_int (calculator 10 '%' 5) ^ " ");;
-print_string (string_of_int (calculator 10 '^' 5) ^ "\n");;
+print_endline (
+	string_of_int (calculator 10 '+' 5) ^ " " ^
+	string_of_int (calculator 10 '-' 5) ^ " " ^
+	string_of_int (calculator 10 '*' 5) ^ " " ^
+	string_of_int (calculator 10 '/' 5) ^ " " ^
+	string_of_int (calculator 10 '%' 5) ^ " " ^
+	string_of_int (calculator 10 '^' 5));;
 
 let is_zero (x : int) : string = 
 	match x with
