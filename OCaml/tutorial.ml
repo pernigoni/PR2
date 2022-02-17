@@ -6,18 +6,12 @@
 print_string "Hello World!\n";;
 
 let calculator (a : int) (op : char) (b : int) : int =
-	if op = '+' then
-		a + b
-	else if op = '-' then 
-		a - b
-	else if op = '*' then
-		a * b
-	else if op = '/' then
-		a / b
-	else if op = '%' then
-		a mod b
-	else
-		999;;
+	if op = '+' then a + b
+	else if op = '-' then a - b
+	else if op = '*' then a * b
+	else if op = '/' then a / b
+	else if op = '%' then a mod b
+	else 999;;
 
 print_endline (
 	string_of_int (calculator 10 '+' 5) ^ " " ^
@@ -51,12 +45,9 @@ Printf.printf "%d\n" (sum_l [2; 3; 7; 1; 0; -4; 5]);;
 (* PRL1 *)
 
 let rec mcd a b =
-	if a = b then
-		a
-	else if a > b then
-		mcd (a - b) b
-	else 
-		mcd a (b - a);;
+	if a = b then a
+	else if a > b then mcd (a - b) b
+	else mcd a (b - a);;
 
 Printf.printf "%d\n" (mcd 325884 8484848);;
 
@@ -88,12 +79,9 @@ let rec min_max l =
 	| [x] -> (x, x)
 	| x::y::ys ->
 		let (m1, m2) = min_max (y::ys) in
-			if x < m1 then
-				(x, m2)
-			else if x > m2 then 
-				(m1, x)
-			else
-				(m1, m2);;
+			if x < m1 then (x, m2)
+			else if x > m2 then (m1, x)
+			else (m1, m2);;
 
 Printf.printf "%a\n" print_int_pair (min_max my_l);;
 
@@ -101,10 +89,8 @@ let rec member l t =
 	match l with
 	| [] -> false
 	| x::xs ->
-		if t = x then
-			true
-		else
-			member xs t;;
+		if t = x then true
+		else member xs t;;
 
 print_endline (string_of_bool (member my_l 77));;
 
