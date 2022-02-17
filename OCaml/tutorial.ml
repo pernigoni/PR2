@@ -88,9 +88,7 @@ Printf.printf "%a\n" print_int_pair (min_max my_l);;
 let rec member l t =
 	match l with
 	| [] -> false
-	| x::xs ->
-		if t = x then true
-		else member xs t;;
+	| x::xs -> if t = x then true else member xs t;;
 
 print_endline (string_of_bool (member my_l 77));;
 
@@ -128,26 +126,23 @@ List.iter (Printf.printf "%d ") (List.fold_right f_2 my_l []);; (* lista dei sol
 Printf.printf "\n";;
 
 let filter p l = (* lista che contiene gli elementi di l su cui il predicato è vero *)
-	let f x y =
-		if p x then x::y else y
+	let f x y = if p x then x::y else y
 	in List.fold_right f l [];;
 
 List.iter (Printf.printf "%d ") (filter even my_l);;	Printf.printf "\n";;
 
 let map f l =
-	let g x y = f x::y
+	let g x y = f x::y 
 	in List.fold_right g l [];;
 
 List.iter (Printf.printf "%d ") (map incr my_l);;	Printf.printf "\n";;
 
 let forall_foldr p l = 
-	let f x y =
-		if p x then y else false
+	let f x y = if p x then y else false
 	in List.fold_right f l true;;
 
 let exists_foldr p l =
-	let f x y =
-		if p x then true else y
+	let f x y = if p x then true else y
 	in List.fold_right f l false;;
 
 (* ALBERI BINARI *)
@@ -159,7 +154,7 @@ let rec split l =
 	| [] -> ([], [])
 	| [x] -> ([x], [])
 	| x::y::ys ->
-		let (l1, l2) = split ys
+		let (l1, l2) = split ys 
 		in (x::l1, y::l2);;
 (* 	val split : 'a list -> 'a list * 'a list = <fun>	*)
 
