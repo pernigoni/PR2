@@ -43,8 +43,6 @@ exception TypeMismatch;;
 exception FieldNotFound;;
 exception ApplyError;;
 
-exception Pippo;;
-
 (* --- *)
 
 let empty_env : evT env = [("", Unbound)];;
