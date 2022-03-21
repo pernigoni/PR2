@@ -1,7 +1,5 @@
-(*	
-	ocamlc -o tutorial tutorial.ml
-	ocamlrun tutorial
-*)
+(*	ocamlc -o tutorial tutorial.ml
+	ocamlrun tutorial	*)
 
 print_string "Hello World!\n";;
 
@@ -156,7 +154,6 @@ let rec split l =
 	| x::y::ys ->
 		let (l1, l2) = split ys 
 		in (x::l1, y::l2);;
-(* 	val split : 'a list -> 'a list * 'a list = <fun>	*)
 
 let rec build_btree l = 
 	match l with
