@@ -77,7 +77,7 @@ let rec eval (e : exp) (s : evT env) = (* interprete *)
     | Times (e1,e2) -> int_times ((eval e1 s), (eval e2 s))
     | Sum (e1, e2) -> int_plus ((eval e1 s), (eval e2 s))
     | Sub (e1, e2) -> int_sub ((eval e1 s), (eval e2 s))
-    | Ifthenelse(e1, e2, e3) -> 
+    | Ifthenelse (e1, e2, e3) -> 
         let g = eval e1 s in
             (match (typecheck ("bool", g), g) with
 		    | (true, Bool (true)) -> eval e2 s
@@ -87,12 +87,12 @@ let rec eval (e : exp) (s : evT env) = (* interprete *)
     | Let (i, e, ebody) -> eval ebody (bind s i (eval e s))
     | Fun (arg, ebody) -> Closure (arg, ebody, s)
     | Letrec(f, arg, fBody, letBody) -> 
-        let benv = bind (s) (f) (RecClosure(f, arg, fBody, s)) in
+        let benv = bind (s) (f) (RecClosure (f, arg, fBody, s)) in
             eval letBody benv
     | Apply (Den (f), eArg) -> 
         let fclosure = lookup s f in 
             (match fclosure with 
-            | Closure(arg, fbody, fDecEnv) ->
+            | Closure (arg, fbody, fDecEnv) ->
                 let aVal = eval eArg s in
 	                let aenv = bind fDecEnv arg aVal in 
                         eval fbody aenv
