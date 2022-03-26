@@ -36,7 +36,7 @@ and listOfValues =
     | Empty
     | Val of exp * listOfValues;;
 
-type 'a env = (string * 'a) list;; (* ambiente polimorfo *)
+type 't env = (string * 't) list;; (* ambiente polimorfo *)
 
 type evT = (* valori a runtime *)
     | Unbound
