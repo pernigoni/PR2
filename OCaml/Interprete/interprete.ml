@@ -62,7 +62,7 @@ let empty_env : evT env = [("", Unbound)];;
 
 let bind (env : evT env) (x : ide) (v : evT) = (x, v)::env;; (* aggiunge un nuovo binding a un ambiente esistente *) 
 
-let rec bind_list (env : evT env) (idlist : ide list) (vlist : evT list) = (* serve per le ParamsFun *)
+let rec bind_list (env : evT env) (idlist : ide list) (vlist : evT list) = (* serve per ParamsFun *)
     match (idlist, vlist) with
     | ([], []) -> env
     | (id::t1, v::t2) -> bind_list (bind env id v) t1 t2
