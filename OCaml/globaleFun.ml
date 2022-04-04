@@ -97,11 +97,6 @@ let p4 = (* funzione ricorsitva: fattoriale *)
     Prog ([Fun ("fact", "x", Ifz (Leq (Den "x", EInt 1), EInt 1, Mul (Den "x", App ("fact", Sub(Den "x", EInt 1)))))], App("fact", EInt 3));;
 pval p4;;
 
-(*  Fibonacci:
-        fun sub1 (n) {- (n, 1)};
-        fun fib (n) {if (= (n, 0) || = (n, 1)) then n else + (fib (sub1 (n)), fib (sub2 (n)))};
-        fun sub2 (m) {sub1 (sub1 (m))};
-        ⇒ fib (4) = 3 *)
 let ptest = 
     Prog (
         [Fun ("sub1", "n", Sub (Den "n", EInt 1));
