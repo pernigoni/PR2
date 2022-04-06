@@ -33,14 +33,14 @@ let square = Fun ("x", Times (Den "x", Den "x"));;
 
 let cube = Fun ("x", Times (Den "x", Times (Den "x", Den "x")));;
 
-(* FUNZIONI COME RISULTATO *)
+(* FUNZIONE COME RISULTATO *)
 
 eval (Let ("square", square,
         Let ("cube", cube,
             Let ("myfun_retFun", Fun ("bool", IfThenElse (Den "bool", Den "square", Den "cube")), Apply (Den "myfun_retFun", EFalse))))) empty_env;;
 (* - : evT = Closure ("x", Times (Den "x", Times (Den "x", Den "x")), [("square", Closure ("x", Times (Den "x", Den "x"), [("", Unbound)])); ("", Unbound)]) *)
 
-(* FUNZIONI COME PARAMETRO *)
+(* FUNZIONE COME PARAMETRO *)
 
 eval (Let ("square", square,
         Let ("cube", cube,
