@@ -1,0 +1,662 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstloadlanguages{java}
+
+\addtolength{\oddsidemargin}{-40pt}
+\addtolength{\textwidth}{80pt}
+\addtolength{\voffset}{-70pt}
+\addtolength{\textheight}{120pt}
+% ==================== FRONTESPIZIO ==================== %
+\title{\centering \textbf{Programmazione 2}}
+\author{Lorenzo Pernigoni}
+\date{}
+% ====================================================== %
+\begin{document}
+\maketitle
+\clearpage
+% ====================== CONTENUTO ===================== %
+\section{Prima parte del programma}
+\paragraph{OGGETTO}
+Struttura dati con \textbf{variabili d'istanza} (private, stato 
+dell'oggetto) e \textbf{metodi} (solitamente tutti pubblici). Ogni oggetto è un'istanza di
+una classe.
+
+\paragraph{CLASSE} 
+È un costrutto usato come modello per creare oggetti. 
+
+\textbf{Costruttori -} eseguiti al momento della creazione di un oggetto.
+
+\textbf{Variabili d'istanza -} tipo e valori iniziali dello stato locale degli oggetti.
+
+\textbf{Metodi -} operazioni che possono essere eseguite.
+
+\paragraph{INTERFACCIA}
+Definisce i metodi che un oggetto mette a disposizione.
+
+\paragraph{INCAPSULAMENTO}
+Non rendere visibile all'esterno l'implementazione dell'oggetto (Information Hiding).
+
+\paragraph{METODO STATICO}
+Appartiene alla classe e non può accedere a variabili d'istanza (non c'è this).
+In una classe è semplicemente una funzione che preso un parametro ritorna un risultato.
+In pratica è il meccanismo che mi permette di avere lo stile imperativo o funzionale nella
+programmazione a oggetti.
+
+\paragraph{VARIABILI STATICHE}
+Variabili accessibili tramite il nome della classe. Non possono essere inizializzate
+nel costruttore dato che non possono essere associate a istanze della classe.
+Sono accessibili solo da metodi statici. Sono globali a tutte le istanze della classe.
+
+\paragraph{RIFERIMENTO}
+Valore che identifica un determinato oggetto. In pratica è come se fosse un puntatore 
+all'oggetto ma mentre in C si espone la sua natura di indirizzo con l'aritmetica dei
+puntatori, in Java non si dice come sono implementati i riferimenti, sono solo valori
+che identificano univocamente oggetti.
+
+\textbf{Pointer equality} (o1 == o2) è vero se i due oggetti denotano lo stesso
+riferimento.
+
+\textbf{Deep equality} (o1.equals(o2)) è vero se le due variabili denotano due oggetti
+identici.
+
+\paragraph{EREDITARIETÀ}
+Una superclasse generalizza una sottoclasse fornendo un comportamento che è condiviso
+dalle sottoclassi.
+
+Se B è un sottotipo di A allora ogni oggetto che soddisfa l'interfaccia di B soddisfa
+anche l'interfaccia di A.
+
+Un'istanza del sottotipo: soddisfa le proprietà del supertipo; può avere maggiori vincoli
+di quella del supertipo.
+
+Permette il \textbf{polimorfismo del sottotipo}: grazie all'ereditarietà una variabile può
+assumere tipi (di classi) differenti.
+
+\paragraph{CASTING}
+B sottoclasse di A.
+
+\textbf{Upcasting -} un oggetto di tipo B può essere legato a una variabile di tipo A.
+
+\textbf{Downcasting -} un oggetto di tipo A può essere legato a una variabile di tipo B.
+\begin{lstlisting}
+    class Vehicle { ... }
+    class Car extends Vehicle { ... }
+    Vehicle v = new Car();          // upcasting (implicito)
+    Car c = (Car) new Vehicle();    // downcasting (esplicito)
+\end{lstlisting}
+
+\paragraph{TIPO STATICO E DINAMICO}
+\begin{itemize}
+    \item \textbf{Statico} è il tipo di una classe o interfaccia determinato dal
+    compilatore. È l'espressione che descrive il valore calcolato in base alla struttura
+    statica del programma.
+    \item \textbf{Dinamico} è il tipo della classe di cui l'oggetto è istanza.
+\end{itemize}
+Nell'upcasting dell'esempio di prima il tipo statico è Vehicle mentre il tipo
+dinamico è Car.
+
+\paragraph{ECCEZIONI}
+Modo per gestire situazioni anomale a tempo di esecuzione.
+\begin{itemize}
+    \item \textbf{Throw} (sollevare)
+    \begin{lstlisting}
+if(myObj.equals(null)) throw new NullPointerException();   
+    \end{lstlisting}
+    L'argomento di throw è un oggetto che è sottotipo di Throwable.
+    
+    \textbf{Try-Catch} (catturare)
+    \begin{lstlisting}
+try { <codice> } catch(IOException e) { <gestione eccezione> }   
+    \end{lstlisting}
+    
+    \textbf{Unchecked} comportano la terminazione del programma; non obbligano
+    il programmatore a gestirle.
+    
+    \textbf{Checked} nella dichiarazione del metodo:
+    \begin{lstlisting}
+public void MyMethod throws Exception { ... } 
+    \end{lstlisting}
+    Eccezioni non fatali da gestire tramite la clausola try-catch.
+\end{itemize}
+
+\paragraph{DISPATCH}
+\begin{itemize}
+    \item \textbf{Static dispatch} (C++) l'operazione di individuazione del metodo da
+    invocare è fatta staticamente (a tempo di compilazione).
+    \item \textbf{Dynamic dispatch} (Java) il metodo da invocare durante l'esecuzione
+    dipende dal tipo corrente associato all'oggetto (quindi dal tipo dinamico).
+\end{itemize}
+
+\paragraph{TIPI DI DATO ASTRATTO}
+L'utente non conosce l'implementazione del tipo. L'unico modo che ha di accedere a
+quel tipo è tramite le operazioni che esso mette a disposizione. Non si tiene conto della
+rappresentazione ma delle funzionalità offerte.
+
+\textbf{Osservatori -} metodi che prelevano delle parti dello stato mascherato
+dell'astrazione e le mettono a disposizione dell'utente.
+
+\textbf{Creatori e Produttori -} .
+
+\textbf{Mutators -} metodi che modificano la struttura del tipo di dato.
+
+\textbf{TDA Immutable} non ha i mutators.
+
+\textbf{TDA Mutable} ha i mutators dato che opera per effetti laterali.
+
+\paragraph{GENERICI}
+Un generics è uno strumento che permette la definizione di un tipo parametrizzato, che
+viene esplicitato successivamente in fase di compilazione secondo la necessità; i generics
+permettono di definire delle astrazioni sui tipi definiti nel linguaggio.
+
+Convenzioni: $<$T$>$ per Type, $<$E$>$ per Element, $<$K$>$ per Key, $<$V$>$ per Value.
+\begin{lstlisting}
+<T extends SuperType>                   // upper bound
+<T extends ClassA & InterfB & InterfC>  // multiple upper bounds
+<T super SubType>                       // lower bound
+\end{lstlisting}
+\begin{itemize}
+    \item \textbf{Covarianza, Controvarianza, Invarianza}
+    
+    A(T) è un tipo definito usando il tipo T e ``$<$:" sta per sottotipo:
+    
+    A è covariante se T $<$: S $\Rightarrow$ A(T) $<$: A(S).
+    
+    A è controvariante se T $<$: S $\Rightarrow$ A(S) $<$: A(T).
+    
+    A è invariante se non è né covariante né controvariante.
+    \item \textbf{Regole di Java}
+    
+    Se T2 è sottotipo di T3 allora T1$<$T2$>$ non è sottotipo di T1$<$T3$>$.
+    
+    La nozione di sottotipo è invariante per le calssi generiche.
+    
+    e.g. Integer è sottotipo di Number. ArrayList$<$E$>$ è sottotipo di
+    List$<$E$>$ che a sua volta è sottotipo di Collection$<$E$>$. List$<$Integer$>$ non è
+    sottotipo di List$<$Number$>$. Questa decisione è stata presa per garantire la
+    \textbf{retrocompatibilità}.
+    \item \textbf{{Java Array}}
+    
+    Se T1 è sottotipo di T2 allora T1[ ] è sottotipo di T2[ ]. È \textbf{covariante}!
+    Questa scelta era stata fatta prima dei generici ed è stata mantenuta.
+\end{itemize}
+
+\paragraph{WILDCARD} \
+
+\textit{Non esiste una compatibilità generale fra i tipi parametrici. Se si è alla ricerca
+della compatibilità, bisogna prendere in considerazione casi specifici e tipi di parametri
+di singoli metodi. Alla normale notazione dei tipi generici} List$<$T$>$ \textit{, usata
+per creare oggetti, si affianca una nuova notazione, pensata per esprimere i tipi
+accettabili come parametri in singoli metodi.
+Si parla quindi di tipi parametrici varianti, in Java detti wildcard.}
+
+\noindent\textbf{List$<$? extends T$>$} cattura le proprietà dei List$<$X$>$ in cui X estende
+T, si usa per specificare tipi che possono essere solo letti (covariante).
+
+\noindent\textbf{List$<$? super T$>$} cattura le proprietà dei List$<$X$>$ in cui X è esteso
+da T, si usa per specificare tipi che possono essere solo scritti (controvariante).
+
+\noindent\textbf{List$<$?$>$} cattura tutti i List$<$T$>$ senza distinzioni, si usa per
+specificare i tipi che non consentono né letture né scritture (invariante).
+
+\paragraph{TYPE ERASURE} Tutti i tipi generici sono trasformati in Object nel processo di
+compilazione per motivi di \textbf{retrocompatibilità}. A runtime hanno tutti lo stesso
+tipo.
+\begin{lstlisting}
+    List<String> lst1 = new ArrayList<String>();
+    List<Integer> lst2 = new ArrayList<Integer>();
+    lst1.getClass() == lst2.getClass()              // TRUE
+\end{lstlisting}
+
+\paragraph{SPECIFICA}
+\begin{itemize}
+    \item \textbf{Precondizione} 
+    proprietà che devono valere prima dell'invocazione di un metodo.
+    
+    \textbf{@requires}
+    \item \textbf{Postcondizione}
+    proprietà che devono valere dopo l'invocazione di un metodo.
+    
+    \textbf{@modifies} oggetti modificati durante l'esecuzione del metodo.
+    
+    \textbf{@throws} eccezioni che potrebbero essere sollevate.
+    
+    \textbf{@effects} proprietà dello stato finale.
+    
+    \item \textbf{Barriera di astrazione} meccanismo che ci permette di usare un programma
+    senza conoscere il codice sorgente.
+    \item \textbf{Invariante di rappresentazione} : Object $\rightarrow$ boolean
+    
+    Ci dice se la rappresentazione che abbiamo scelto è ben formata ovvero se rispetta
+    i vincoli che volevamo dall'astrazione. 
+    
+    Guida per chi implementa, modifica o verifica l'implementazione delle astrazioni:
+    nessun oggetto deve violare il rep invariant.
+    
+    \item \textbf{Funzione di astrazione} : Object $\rightarrow$ abstractValue
+    
+    Come interpretare la struttura dati concreta dell'implementazione. È definita solo
+    sui valori che rispettano il rep invariant.
+    
+    Guida per chi implementa o modifica l'astrazione: ogni operazione deve fare la cosa
+    giusta con la rappresentazione concreta.
+    \item \textbf{checkRep()} progettare codice in modo tale che alla chiamata
+    del metodo si verifica il rep invariant e le precondizioni; all'uscita del metodo si
+    verifica il rep invariant e le postcondizioni.
+\end{itemize}
+
+\paragraph{ESPORRE LA RAPPRESENTAZIONE}
+C'è il rischio di dare in mano al cliente l'accesso diretto alle strutture dati.
+L'uso di \textit{private} potrebbe non bastare, si potrebbe avere un aliasing delle
+strutture mutabili all'interno e all'esterno dell'astrazione.
+
+Per evitare l'esposizione della rappresentazione una prima tecnica è quella di fare copie
+dei dati che oltrepassano la barriera di astrazione (caso di dati \textbf{mutable}).
+
+\textbf{Copy in -} parametri che diventano valori della rappresentazione.
+
+\textbf{Copy out -} risultati che sono parte dell'implementazione.
+
+Una shallow copy non è sufficiente, a causa dell'aliasing si opta per una deep copy.
+\begin{lstlisting}
+class Line {
+    private Point s, e;
+    public Line(Point s, Point e) {                 // copy in
+        this.s = new Point(s.get(x), s.get(y));
+        this.e = new Point(e.get(x), e.get(y));
+    }
+    public Point getStart() {                       // copy out
+        return new Point(this.s.get(x), this.s.get(y));
+    } }
+\end{lstlisting}
+L'alternativa è rendere i dati \textbf{immutable}. I vantaggi sono che l'aliasing non è
+un problema, non serve fare copie, rep invariant non può essere rotto. Lo svantaggio è
+che si possono comunque derivare informazioni su elementi della struttura.
+
+\paragraph{OPEN / CLOSED}
+Una classe è chiusa per modifiche perché la definizione delle astrazioni non cambia; però
+può essere estesa tramite sottoclassi, quindi è aperta per estensioni.
+
+\paragraph{PRINCIPIO DI SOSTITUZIONE DELLA LISKOV}
+Se una classe B estende una classe A vorrei usare la classe B in tutti i posti in cui
+poteva essere usata A senza che chi usa A si accorga che sta usando B.
+
+In altre parole \textbf{se B è un sottotipo di A allora B può sempre sostituire A; ogni
+istanza di B può stare in tutti i posti dove può stare un'istanza di A}.
+
+\noindent Variabili e metodi \textit{private} non sono visibili a B, per fare altrimenti
+bisogna usare \textit{protected}.
+
+(1) Si applica a gerarchie di ereditarietà. (2) Si deve essere sicuri che le classi
+derivate estendono le classi di base senza cambiare il loro comportamento generale. (3)
+L'utente non si deve accorgere delle differenze tra tipo e sottotipo.
+\begin{itemize}
+    \item \textbf{Regola della segnatura} gli oggetti del sottotipo devono avere tutti
+    i metodi del supertipo; le segnature dei metodi del sottotipo devono essere compatibili
+    con le segnature dei corrispondenti metodi del supertipo (tutto garantito dal
+    compilatore Java). 
+    \item \textbf{Regola dei metodi} le chiamate dei metodi del sottotipo devono
+    comportarsi come le chiamate dei corrispondenti metodi del supertipo.
+    \begin{lstlisting}
+    /*  REQUIRES: this non e' vuoto.
+        EFFECTS: aggiunge 0 a this. */
+    public void addZero();
+    \end{lstlisting}
+    \textbf{Precondizione indebolita} : pre\textsubscript{super} $\Rightarrow$
+    pre\textsubscript{sub}
+    \begin{lstlisting}
+    /*  EFFECTS: aggiunge 0 a this. */
+    public void addZero();              // sottotipo
+    \end{lstlisting}
+    \textbf{Postcondizione rafforzata} : pre\textsubscript{super} $\wedge$
+    post\textsubscript{sub} $\Rightarrow$ post\textsubscript{super}
+    \begin{lstlisting}
+    /*  EFFECTS: se this non e' vuoto aggiunge 0 a this
+        altrimenti aggiunge 1 a this. */
+    public void addZero();              // sottotipo
+    \end{lstlisting}
+    \item \textbf{Regola delle proprietà} il sottotipo deve preservare tutte le proprietà
+    che possono essere provate sugli oggetti del supertipo. Le proprietà sono dichiarate
+    nell'OVERVIEW del supertipo.
+\end{itemize}
+
+\paragraph{ITERATORI}
+Astrazione che permette di estrarre uno alla volta gli elementi di una collezione senza
+esporne la rappresentazione. Sono oggetti di classi che implementano la seguente
+interfaccia.
+\begin{lstlisting}
+    public interface Iterator<E> {
+        boolean hasNext();
+        E next();
+        void remove(); }
+    
+    // tipico uso
+        Iterator<Integer> itr = myIntCollection.iterator();
+        while(itr.hasNext()) { int x = itr.next(); ... }
+\end{lstlisting}
+\textbf{Inner class -} si può dichiarare una classe all'interno di un'altra classe. La 
+inner class è il meccanismo di generazione dell'iteratore per la classe esterna.
+\begin{lstlisting}
+public class Primes implements Iterable<Integer> {
+    public Iterator<Integer> iterator() {
+        return new PrimeGen();
+    }
+    private static class PrimeGen implements Iterator<Integer> {
+        ... // inner class statica
+    } }
+\end{lstlisting}
+
+\section{Seconda parte del programma}
+\paragraph{ASPETTI SIGNIFICATIVI} \
+
+\textbf{Astrazione sui dati -} meccanismo che permette di nascondere le scelte di 
+implementazione dei dati in modo da essere usati come se fossero primitivi.
+
+\textbf{Astrazione sul controllo -} il linguaggio presenta delle primitive linguistiche
+che permettono a chi programma di definire il proprio meccanismo di esecuzione.
+
+\textbf{Astrazione di modularità -} come fare un programma mettendo insieme vari pezzi.
+
+\paragraph{MACCHINA ASTRATTA} 
+Sistema virtuale che rappresenta il comportamento di una macchina fisica individuando
+precisamente l'insieme delle risorse necessarie per l'esecuzione di programmi.
+
+Per noi è una collezione di strutture dati e algoritmi in grado di memorizzare ed eseguire
+programmi. Le componenti sono: \textbf{interprete}, \textbf{memoria} (dati e programmi),
+\textbf{controllo}, \textbf{operazioni primitive}.
+
+\paragraph{INTERPRETE}
+\textit{Programma in grado di eseguire altri programmi a partire direttamente dal codice
+sorgente senza compilazione, eseguendo cioè le istruzioni traducendole di volta in volta in
+istruzioni del linguaggio macchina.}
+
+Programma che prende in ingresso l'albero di sintassi astratta di un programma e lo esegue
+ispezionandolo per vedere cosa deve essere fatto.
+
+\paragraph{VALUTAZIONE} \
+
+\textbf{Eager -} valutare un'espressione non appena viene legata a una variabile.
+Utilizzata principalmente nei linguaggi imperativi dove l'ordine di esecuzione è definito
+implicitamente dall'organizzazione del codice sorgente.
+\textbf{Lazy -} valutare un'espressione solo quando si chiede il valore di un'espressione
+dipendente da essa.
+
+\paragraph{RUNTIME SUPPORT}
+Collezione di strutture dati e sottoprogrammi caricati sulla macchina ospite per permettere
+l'esecuzione del codice prodotto dal compilatore.
+
+\paragraph{SINTASSI}
+La \textbf{sintassi concreta} di un linguaggio di solito è definita da una grammatica
+libera da contesto. La \textbf{sintassi astratta} è una rappresentazione lineare
+dell'albero sintattico dove gli operatori sono nodi dell'albero e gli operandi sono
+rappresentati dai sottoalberi.
+
+\paragraph{SEMANTICA STATICA}
+Proprietà del programma che si manifesta senza doverlo eseguire. Proprietà controllata e
+verificata dal compilatore o da altri strumenti (variabili non definite, programma corretto
+rispetto ai tipi, programma non contiene dead code).
+
+\paragraph{TABELLA DEI SIMBOLI}
+Struttura di supporto utilizzata da compilatori e interpreti per l'analisi statica. Ogni
+identificatore o simbolo nel codice sorgente di un programma è associato a informazioni
+relative alla sua dichiarazione.
+ 
+Nel caso del nostro semplice linguaggio la tabella è costituita dall'insieme dei nomi delle
+variabili dichiarate nel programma. $\Gamma$ = \{x, y, ..., w\}
+
+\paragraph{SEMANTICA DINAMICA}
+Specifica le regole di esecuzione del programma. Può includere effetti laterali e la
+produzione di valori. Noi usiamo la \textbf{semantica operazionale} che consiste
+nel definire la semantica in termini della macchina astratta.
+
+\textbf{Sistema di transizione -} definisce la valutazione step-by-step di un programma.
+Insieme di \textbf{stati} S della macchina astratta; insieme I di stati \textbf{iniziali};
+insieme F di stati \textbf{finali}; \textbf{relazione di transizione}, $\rightarrow$
+$\subseteq$ S $\times$ S, descrive l'effetto di un singolo passo di valutazione.
+
+\paragraph{AMBIENTE}
+Con binding si intende un'associazione nome/valore. L'ambiente è una collezione di binding,
+astrattamente è una funzione Ide $\rightarrow$ Value + Unbound.
+
+\paragraph{DESCRITTORE}
+Struttura che contiene la descrizione del tipo, usato quando si applica un'operazione al
+dato. Serve per controllare che il tipo del dato sia quello previsto dall'operazione
+(\textbf{type checking dinamico}) e per selezionare l'operatore giusto. 
+  
+\paragraph{TYPE CHECKING}
+\begin{itemize}
+    \item Informazione sui tipi è nota completamente a tempo di compilazione (OCaml).
+    
+    Si possono eliminare i descrittori. \textbf{Type checking statico} in quanto è
+    effettuato totalmente dal compilatore.
+    
+    \item Informazione sui tipi è nota solo a tempo si esecuzione (JavaScript).
+    
+    Servono descrittori per tutti i tipi di dato. \textbf{Type checking dinamico} in quanto
+    è effettuato totalmente a tempo di esecuzione.
+    
+    \item Informazione sui tipi è nota solo parzialmente a tempo di compilazione (Java).
+    
+    I descrittori contengono solo l'informazione dinamica. Il type checking è effettuato
+    in parte dal compilatore e in parte dal runtime support.
+\end{itemize}
+
+\paragraph{SCOPING}
+\begin{itemize}
+    \item \textbf{Scoping statico} la visibilità delle variabili dipende dalla struttura
+    sintattica del programma, si guarda il codice precedente. (x = 1)
+    \item \textbf{Scoping dinamico} si va a vedere l'ultima dichiarazione eseguita prima
+    di invocare la funzione, non si amalgama bene con l'analisi statica. (x = 10)
+\end{itemize}
+\begin{lstlisting}
+    let x = 1 in                    
+        let f = fun (y : int) -> x + y in
+            let x = 10 in f 3;;
+\end{lstlisting}
+
+\paragraph{CALL/RETURN DI SOTTOPROGRAMMI} \ 
+
+\textbf{Chiamante} (1) Crea un'istanza del record di attivazione. (2) Salva lo stato
+dell'unità corrente di esecuzione. (3) Fa il passaggio dei parametri. (4) Inserisce il
+punto di ritorno. (5) Trasferisce il controllo al chiamato.
+
+\textbf{Chiamato - prologo} (1) Salva il valore corrente dell'Environment Pointer (EP) e lo
+memorizza nel record di attivazione. (2) Definisce il nuovo valore di EP. (3) Alloca le
+variabili locali.
+
+\textbf{Chiamato - epilogo} (1) Eventuale passaggio di valori. (2) Il valore calcolato
+dalla funzione è trasferito al chiamante. (3) Ripristina le info di controllo ovvero il
+vecchio valore di EP salvato nel record di attivazione. (4) Ripristina lo stato di
+esecuzione del chiamante. (5) Trasferisce il controllo al chiamante. 
+
+\paragraph{INLINE-BLOCK} \
+% \includegraphics[width=10cm]{photo_2022-03-01_10-11-25.jpg}
+\begin{itemize}
+    \item \textbf{Record di attivazione}
+    contiene control link, variabili locali e risultati intermedi.
+
+    \textbf{Control link -} indirizzo di base (puntatore di catena dinamica) dell'AR
+    precedente nello stack.
+
+    \textbf{Push AR -} il valore di EP diventa il valore del control link del nuovo AR;
+    modifica EP a puntare al nuovo AR.
+
+    \textbf{Pop AR -} il valore del nuovo EP è ottenuto seguendo il control link.
+    \item \textbf{Static scope -} i riferimenti non locali si risolvono nel più vicino
+    blocco esterno nella struttura del programma.
+    
+    \textbf{Dynamic scope -} i riferimenti non locali si risolvono nell'AR precedente sullo
+    stack.
+    
+    Nel caso di inline-block, scoping statico e dinamico \textbf{coincidono}.
+\end{itemize}
+
+\paragraph{FUNZIONI E PROCEDURE}
+\begin{itemize}
+    \item \textbf{Record di attivazione} contiene control link, parametri, indirizzo di
+    ritorno, variabili locali e risultati intermedi, valore restituito, indirizzo del
+    risultato di ritorno.
+    
+    \textbf{Indirizzo di ritorno -} indirizzo dell'istruzione da eseguire quando viene
+    restituito il controllo al chiamante.
+    
+    \textbf{Indirizzo del risultato di ritorno -} indirizzo nell'AR del chiamante dove
+    memorizzare il risultato.
+    
+    \item \textbf{Passaggio di parametri}
+    y := x; L-value è la locazione, R-value è il contenuto della locazione.
+
+    \textbf{Per riferimento -} memorizzare L-value nel record di attivazione; il corpo della
+    funzione può modificare il valore del parametro attuale; aliasing tra parametro formale
+    e attuale. 
+    
+    \textbf{Per valore -} memorizzare R-value nel record di attivazione.
+\end{itemize}
+In C e Java si ha solo il passaggio per valore. Il passaggio per riferimento è simile al
+meccanismo che ho quando passo un puntatore o un riferimento a un oggetto perché il valore
+del puntatore o del riferimento è una locazione. 
+
+\paragraph{ANALISI STATICA}
+Permette di tradurre ogni occorrenza di un nome x in una coordinata di distanza statica.
+x = $<$livello, offset$>$ Il livello è il livello lessicale al quale appare la dichiarazione
+di x, l'offset è un indirizzo che identifica in modo univoco la posizione per x.
+
+Modo molto efficiente per risolvere i riferimenti non locali senza dover fare ricerche con
+i nomi a runtime.  Pago il costo di un'analisi statica nel back-end del compilatore ma ho un
+overhead minore a runtime.
+
+(1) Ogni volta che l'analisi statica entra in un nuovo scope crea una nuova tabella dei
+simboli per tale scope. (2) Appena incontra le dichiarazione nello scope, inserisce le info
+nella tabella corrente. (3) Quando incontra un riferimento a una variabile, cerca nella
+tabella dello scope corrente. Se la tabella corrente non contiene una dichiarazione per il
+nome allora controlla la tabella per lo scope precedente.
+
+\paragraph{SCOPING STATICO} \ 
+
+\textbf{Control link -} puntatore all'AR che era in testa alla pila. \textbf{Static link -}
+puntatore all'AR che contiene il blocco più vicino che racchiude la dichiarazione del codice
+in esecuzione. 
+In C non abbiamo funzioni nested (sono globali) quindi non serve lo static link.
+
+\textbf{Analisi -} control link memorizza il flusso dinamico di esecuzione;
+static link dipende dalla struttura sintattica del programma. 
+
+\textbf{Static depth -} profondità statica della dichiarazione.
+
+\noindent SD(Chiamante) = n, SD(Chiamato) = m  $\Rightarrow$ il chiamante deve fare n - m
+passi lungo la catena statica per definire il valore del puntatore della catena statica del
+chiamato.
+
+\paragraph{CHIUSURA}
+Valore di una funzione. Quando il parametro formale viene invocato si alloca sullo stack
+l'AR della funzione e si mette come valore del puntatore di catena statica il puntatore a
+env\_dichiarazione. \textbf{closure = $<$env\_dichiarazione, codice\_fun$>$}
+
+In altre parole il compilatore, nel caso di programmazione funzionale, associa alle funzioni
+un parametro implicito che è l'ambiente dove sono state dichiarate.
+
+Nel caso di scoping dinamico abbiamo bisogno di chiusure solo nel caso in cui si abbiano
+funzioni come parametro o risultato perché si fa sempre riferimento all'ambiente del
+chiamante.
+
+\paragraph{SCOPING DINAMICO}
+Si usa solo il control link. Non si possono fare controlli prima di mandare il programma in
+esecuzione, quindi si avrà un overhead sia di tempo che di spazio (per i nomi) a runtime per
+il controllo dei tipi.
+
+\paragraph{FUNZIONE COME RISULTATO}
+Bisogna congelare l'ambiente dove la funzione è ``dichiarata". Funzione ``dichiarata"
+dinamicamente: può avere variabili non locali, restituisce una chiusura $<$env, code$>$, l'AR
+a cui punta env non può essere distrutto finché la funzione può essere usata
+(\textbf{retention}).
+
+\paragraph{CLASSI E OGGETTI}
+L'istanziazione (attivazione) di una classe avviene attraverso la chiamata del costruttore
+con la quale si passano alla classe eventuali parametri attuali e restituisce un oggetto.
+L'ambiente e la memoria locale dell'oggetto sono creati dalla valutazione delle
+dichiarazioni: di variabili che definiscono le istanze dell'oggetto (se ci sono allora
+l'oggetto ha memoria quindi uno stato modificabile); di funzioni che definiscono i metodi.
+
+\textbf{Tabella dei metodi -} si associa all'oggetto un puntatore alla tabella dei metodi
+(o dispatch vector) che contiene il binding dei metodi (associazione nome/codice). Così
+riusciamo a utilizzare le informazioni sull'oggetto a runtime per individuare
+il codice del metodo giusto da eseguire.
+
+\textbf{Implementazione dei metodi -} un metodo è eseguito come una funzione (vedi sopra).
+L'oggetto è un parametro implicito, quando un metodo è invocato gli viene passato anche un
+puntatore all'oggetto sul quale viene invocato; durante l'esecuzione del metodo il puntatore
+è il \textbf{this} del metodo.
+
+\paragraph{JVM}
+Il \textbf{Java Runtime} contiene la JVM, le librerie standard (API Java) e un launcher per
+eseguire i programmi già compilati in bytecode (linguaggio macchina della JVM).
+
+La \textbf{JVM} è la macchina astratta di Java. È composta da loader, verifier, linker e
+interprete del bytecode.
+
+\paragraph{CLASSLOADER}
+All'inizio carica la classe Object (superclasse di ogni classe) e la classe che
+contiene il main.
+Il class loader, quando trova il riferimento a una classe non ancora caricata, la carica
+insieme a tutte quelle che stanno sopra di essa nella gerarchia.
+
+\paragraph{ROOT SET} 
+Contiene le variabili statiche e quelle allocate sul runtime stack che puntano a oggetti
+sullo heap. Pertanto anche tutte le variabili locali del main che puntano allo heap
+appartengono al root set. Questa informazione è usata dal GC per determinare i dati ancora
+attivi, ovvero quelli raggiungibili anche indirettamente dal root set seguendo i puntatori.
+
+\paragraph{GESTIONE DELLA MEMORIA} \ 
+
+\textbf{Static area -} dimensione fissa, contenuti allocati a tempo di compilazione.
+
+\textbf{Runtime stack -} dimensione variabile, record di attivazione.
+
+\textbf{Heap -} supporto all'allocazione di oggetti e strutture dati dinamiche (malloc,
+new).
+
+\paragraph{GARBAGE COLLECTOR}
+Modalità automatica di gestione della memoria, mediante la quale si liberano porzioni di
+memoria non più utilizzate dalle applicazioni. Il GC esonera il programmatore dall'eseguire
+manualmente l'allocazione e la deallocazione di aree di memoria, eliminando alcuni bug:
+puntatori pendenti, doppia deallocazione, memory leak.
+
+\textbf{Reference counting -} si aggiunge un contatore di riferimenti alle celle (numero di
+cammini di accesso attivi verso la cella). Overhead a runtime dato dalla gestione dei
+contatori. Il riuso delle celle libere è immediato, basta controllare se il contatore è 0.
+Non permette di gestire strutture dati con cicli interni.
+ 
+\textbf{Modello a grafo della memoria -} si determina il root set, cioè l'insieme dei dati
+sicuramente attivi. Il Java root set comprende variabili statiche e variabili allocate sul
+runtime stack. Per ogni struttura dati allocata (sullo stack o heap) occorre sapere dove
+ci possono essere puntatori a elementi dello heap (info presente sui descrittori di tipo). I
+dati attivi raggiungibili corrispondono alla chiusura transitiva del grafo a partire dalle
+radici, ovvero tutti i dati raggiungibili dal root set seguendo i puntatori.
+
+\textbf{Cella -} blocco di memoria sullo heap. Una cella è \textbf{live} sse appartiene ai
+dati attivi raggiungibili. Una cella è \textbf{garbage} se non è live. Il \textbf{GC}
+individua le celle garbage e le rende riutilizzabili inserendole nella lista libera.
+
+\textbf{Mark-and-sweep -} ogni cella prevede un bit di marcatura. \textbf{Marking}: si parte
+dal root set e si marcano le celle live. \textbf{Sweep}: tutte le celle non marcate sono
+garbage, sono restituite alla lista libera e si resetta il bit di marcatura. Opera
+correttamente sulle strutture circolari, nessun overhead di spazio ma non interviene sulla
+frammentazione.
+
+\textbf{Algoritmo di Cheney (Copying collection) -} suddivide lo heap in due parti:
+from-space e to-space. Solo una parte dello heap è attiva. Quando viene attivato il GC le
+celle live vengono copiate nella porzione dello heap non attiva; alla fine dell'operazione
+di copia la parte non attiva diventa attiva e viceversa. Le celle nella parte non attiva
+vengono restituite alla lista libera in un unico blocco evitando problemi di frammentazione.
+
+\textbf{GC Generazionale -} si divide lo heap in un insieme di generazioni, il GC opera su
+quelle più giovani. Most cells that die, die young.
+
+\noindent In Java si hanno tre generazioni, la 0 e la 2 copy collection, la 1 mark-and-sweep.
+
+\paragraph{JIT COMPILER}
+Compilazione effettuata durante l'esecuzione del programma piuttosto che precedentemente.
+
+\end{document}
