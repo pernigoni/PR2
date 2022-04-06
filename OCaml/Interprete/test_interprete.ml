@@ -30,7 +30,6 @@ eval (Let ("myfun", Fun ("x", Add (Den "x", EInt 1000)), Apply (Den "myfun", EIn
 (* - : evT = Int 1077 *)
 
 let square = Fun ("x", Times (Den "x", Den "x"));;
-
 let cube = Fun ("x", Times (Den "x", Times (Den "x", Den "x")));;
 
 (* FUNZIONE COME RISULTATO *)
