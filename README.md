@@ -1,2 +1,2 @@
 # Programmazione 2
-Esercizi vari.
+Esercizi vari e appunti.
